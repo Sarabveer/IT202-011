@@ -2,5 +2,4 @@
 
 **Sarabveer Singh**
 
-Repo for IT202 class.
-
+Repo for IT202 class
