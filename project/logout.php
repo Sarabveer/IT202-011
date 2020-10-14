@@ -1,5 +1,5 @@
-<?php require_once(__DIR__ . "/partials/nav.php"); ?>
 <?php
+require_once __DIR__ . "/partials/nav.php";
 //since this function call is included we can omit it here. Having multiple calls to session_start() will cause errors/warnings
 //session_start();
 // remove all session variables
