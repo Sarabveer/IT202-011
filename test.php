@@ -1,5 +1,5 @@
 <?php
 
-echo "Sarabveer Singh - GCP VM"
+echo "Sarabveer Singh - GCP VM";
 
 ?>
