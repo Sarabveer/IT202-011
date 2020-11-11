@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/partials/nav.php";
+require_once __DIR__ . "../partials/nav.php";
 if (!has_role("Admin")) {
   //this will redirect to login and kill the rest of this script (prevent it from executing)
   flash("You don't have permission to access this page");
@@ -31,7 +31,7 @@ if (isset($_POST["save"])) {
   $user = get_user_id();
   $db = getDB();
   $stmt = $db->prepare(
-    "INSERT INTO Accounts (account_number, user_id, account_type, balance) VALUES(:account_number, :user, :account_type, :balance)"
+    "INSERT INTO Accounts (account_number, user_id, account_type, balance) VALUES (:account_number, :user, :account_type, :balance)"
   );
   $r = $stmt->execute([
     ":account_number" => $account_number,

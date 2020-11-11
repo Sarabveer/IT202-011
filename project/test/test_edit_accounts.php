@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/partials/nav.php";
+require_once __DIR__ . "../partials/nav.php";
 if (!has_role("Admin")) {
   //this will redirect to login and kill the rest of this script (prevent it from executing)
   flash("You don't have permission to access this page");
@@ -54,15 +54,15 @@ if (isset($id)) {
 
 <form method="POST">
 	<label>Account Number</label>
-	<input name="account_number" type="number" max="999999999999" min="100000000000" value="<?php echo $result["account_number"]; ?>"/> 
+	<input name="account_number" type="number" max="999999999999" min="100000000000" value="<?php safer_echo($result["account_number"]); ?>"/> 
 	<label>Account Type</label>
-	<select name="account_type" value="<?php echo $result["account_type"]; ?>">
-		<option value="checking">Checking</option>
-		<option value="savings">Savings</option>
-		<option value="loan">Loan</option>
+	<select name="account_type">
+		<option value="checking" <?php echo $result["account_type"] == 'checking' ? 'selected' : ''; ?>>Checking</option>
+		<option value="savings" <?php echo $result["account_type"] == 'savings' ? 'selected' : ''; ?>>Savings</option>
+		<option value="loan" <?php echo $result["account_type"] == 'loan' ? 'selected' : ''; ?>>Loan</option>
 	</select>
 	<label>Balance</label>
-	<input type="number" min="0.00" name="balance" step="0.01" value="<?php echo $result["balance"]; ?>"/>
+	<input type="number" min="0.00" name="balance" step="0.01" value="<?php safer_echo($result["balance"]); ?>"/>
 	<input type="submit" name="save" value="Create"/>
 </form>
 
