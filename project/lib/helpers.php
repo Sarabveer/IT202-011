@@ -87,11 +87,11 @@ function changeBalance($db, $src, $dest, $type, $balChange, $memo = '') {
   // Src Account Balance
   $stmt = $db->prepare("SELECT * from Accounts WHERE id = :id");
   $stmt->execute([":id" => $src]);
-  $srcAcct = $stmt->fetch();
+  $srcAcct = $stmt->fetch(PDO::FETCH_ASSOC);
 
   // Dest Account Balance
   $stmt->execute([":id" => $dest]);
-  $destAcct = $stmt->fetch();
+  $destAcct = $stmt->fetch(PDO::FETCH_ASSOC);
 
   // Insert Transaction
   $transactions = $db->prepare(
@@ -131,6 +131,8 @@ function changeBalance($db, $src, $dest, $type, $balChange, $memo = '') {
   // Update balances of Accounts
   $accounts->execute([":balance" => $finalSrcBalace, ":id" => $src]);
   $accounts->execute([":balance" => $finalDestBalace, ":id" => $dest]);
+
+  return $transactions;
 }
 
 ?>

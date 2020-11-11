@@ -23,7 +23,14 @@ if (isset($_POST["save"])) {
   $balance = $_POST["balance"];
   $memo = $_POST["memo"];
   
-  changeBalance($db, $account_src, $account_dest, $transaction_type, $balance, $memo);
+  $r = changeBalance($db, $account_src, $account_dest, $transaction_type, $balance, $memo);
+
+  if ($r->errorInfo()) {
+    $e = $r->errorInfo();
+    flash("Error creating: " . var_export($e, true));
+  } else {
+    flash("Created successfully with id: " . $db->lastInsertId());
+  }
 }
 ?>
 
