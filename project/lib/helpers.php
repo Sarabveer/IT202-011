@@ -95,7 +95,7 @@ function changeBalance($db, $src, $dest, $type, $balChange, $memo = '') {
 
   // Insert Transaction
   $transactions = $db->prepare(
-    "INSERT INTO Transactions (act_src_id, act_dest_id, amount, action_type, memo, expected_total
+    "INSERT INTO Transactions (act_src_id, act_dest_id, amount, action_type, memo, expected_total)
     VALUES (:act_src_id, :act_dest_id, :amount, :action_type, :memo, :expected_total)"
   );
   $accounts = $db->prepare(
