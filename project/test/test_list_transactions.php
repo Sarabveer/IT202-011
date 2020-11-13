@@ -14,8 +14,9 @@ if (isset($_POST["query"]) && isset($_POST["account_type"])) {
 }
 if (isset($_POST["search"]) && !empty($query) && !empty($account_type)) {
   $db = getDB();
+  $column = $account_type == 'dest' ? 'act_dest_id' : 'act_src_id';
   $stmt = $db->prepare(
-    "SELECT * from Transactions WHERE " . $account_type == 'dest' ? 'act_dest_id' : 'act_src_id' . " = :q LIMIT 10"
+    "SELECT * from Transactions WHERE " . $column . " = :q LIMIT 10"
   );
   $r = $stmt->execute([":q" => $query]);
   if ($r) {
@@ -44,7 +45,7 @@ if (isset($_POST["search"]) && !empty($query) && !empty($account_type)) {
                 </div>
                 <div>
                     <div>Account Dest ID:</div>
-                    <div><?php safer_echo($r["acct_dest_id"]); ?></div>
+                    <div><?php safer_echo($r["act_dest_id"]); ?></div>
                 </div>
                 <div>
                     <div>Amount:</div>
@@ -67,8 +68,8 @@ if (isset($_POST["search"]) && !empty($query) && !empty($account_type)) {
                     <div><?php safer_echo($r["created"]); ?></div>
                 </div>
                 <div>
-                    <a type="button" href="test_edit_accounts.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
-                    <a type="button" href="test_view_accounts.php?id=<?php safer_echo($r['id']); ?>">View</a>
+                    <a type="button" href="test_edit_transactions.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
+                    <a type="button" href="test_view_transactions.php?id=<?php safer_echo($r['id']); ?>">View</a>
                 </div>
             </div>
         <?php endforeach; ?>
