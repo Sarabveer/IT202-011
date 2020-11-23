@@ -12,24 +12,25 @@ require_once __DIR__ . "/../lib/helpers.php";
 
 	<!-- Libraries -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5/web-fonts-with-css/css/fontawesome-all.min.css">
 	<script defer src="https://cdn.jsdelivr.net/npm/bootstrap.native@3/dist/bootstrap-native.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="<?php echo getURL('/'); ?>">Sarabveer's Bank</a>
+            <a class="navbar-brand" href="<?php echo getURL('.'); ?>">Sarabveer's Bank</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" href="<?php echo getURL('home.php'); ?>">Home</span></a></li>
                 <?php if (!is_logged_in()): ?>
                     <li class="nav-item"><a class="nav-link" href="<?php echo getURL('login.php'); ?>">Login</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo getURL('register.php'); ?>">Register</a></li>
                 <?php endif; ?>
                 <?php if (is_logged_in()): ?>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo getURL('home.php'); ?>">Home</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo getURL('profile.php'); ?>">Profile</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo getURL('logout.php'); ?>">Logout</a></li>
                 <?php endif; ?>
