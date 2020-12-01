@@ -13,6 +13,7 @@ require_once __DIR__ . "/../lib/helpers.php";
 	<!-- Libraries -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5/web-fonts-with-css/css/fontawesome-all.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap4-card-tables@1.2.1/dist/bootstrap4-card-tables.min.css">
 	<script defer src="https://cdn.jsdelivr.net/npm/bootstrap.native@3/dist/bootstrap-native.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
