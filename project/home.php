@@ -14,7 +14,7 @@ if (!is_logged_in()) {
         <a class="btn btn-primary" href="#" role="button"><i class="fas fa-hand-holding-usd fa-fw"></i> Deposit</a>
         <a class="btn btn-primary" href="#" role="button"><i class="fas fa-money-bill-wave fa-fw"></i> Withdraw</a>
         <a class="btn btn-primary" href="accounts.php" role="button"><i class="fas fa-wallet fa-fw"></i> View Accounts</a>
-        <a class="btn btn-primary" href="#" role="button"><i class="fas fa-file-invoice-dollar fa-fw"></i> Open Account</a>
+        <a class="btn btn-primary" href="create_account.php" role="button"><i class="fas fa-file-invoice-dollar fa-fw"></i> Open Account</a>
       </p>
     </div>
 <?php require __DIR__ . "/partials/flash.php"; ?>
