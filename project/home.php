@@ -7,7 +7,7 @@ if (!is_logged_in()) {
 }
 ?>
     <div class="jumbotron mt-4 text-center">
-      <h1 class="display-4">Welcome, <?php echo $_SESSION["user"]['username']; ?>!</h1>
+      <h1 class="display-4">Welcome, <?php safer_echo(get_name()); ?>!</h1>
       <hr class="my-4">
       <p class="lead">What would you like to do today?</p>
       <p>
