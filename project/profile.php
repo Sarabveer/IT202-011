@@ -54,7 +54,7 @@ if (isset($_POST["saved"])) {
       }
     }
     if ($inUse > 0) {
-      flash("Username already in use");
+      flash("Username already in use!");
       //for now we can just stop the rest of the update
       $isValid = false;
     } else {
@@ -63,12 +63,14 @@ if (isset($_POST["saved"])) {
   }
   if ($isValid) {
     $stmt = $db->prepare(
-      "UPDATE Users set email = :email, username= :username where id = :id"
+      "UPDATE Users set email = :email, username = :username, first_name = :first_name, last_name = :last_name where id = :id"
     );
     $r = $stmt->execute([
       ":email" => $newEmail,
       ":username" => $newUsername,
       ":id" => get_user_id(),
+      ":first_name" => $_POST["first_name"],
+      ":last_name" => $_POST["last_name"]
     ]);
     if ($r) {
       flash("Updated profile");
@@ -87,15 +89,15 @@ if (isset($_POST["saved"])) {
         );
         $r = $stmt->execute([":id" => get_user_id(), ":password" => $hash]);
         if ($r) {
-          flash("Reset Password");
+          flash("Reset Password.");
         } else {
-          flash("Error resetting password");
+          flash("Error resetting password!");
         }
       }
     }
     //fetch/select fresh data in case anything changed
     $stmt = $db->prepare(
-      "SELECT email, username from Users WHERE id = :id LIMIT 1"
+      "SELECT email, username, first_name, last_name from Users WHERE id = :id LIMIT 1"
     );
     $stmt->execute([":id" => get_user_id()]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -105,6 +107,8 @@ if (isset($_POST["saved"])) {
       //let's update our session too
       $_SESSION["user"]["email"] = $email;
       $_SESSION["user"]["username"] = $username;
+      $_SESSION["user"]["first_name"] = $result["first_name"];
+      $_SESSION["user"]["last_name"] = $result["last_name"];
     }
   } else {
     //else for $isValid, though don't need to put anything here since the specific failure will output the message
@@ -112,20 +116,45 @@ if (isset($_POST["saved"])) {
 }
 ?>
 
-    <form method="POST">
-        <label for="email">Email</label>
-        <input type="email" name="email" value="<?php safer_echo(
-          get_email()
-        ); ?>"/>
-        <label for="username">Username</label>
-        <input type="text" maxlength="60" name="username" value="<?php safer_echo(
-          get_username()
-        ); ?>"/>
-        <!-- DO NOT PRELOAD PASSWORD-->
-        <label for="pw">Password</label>
-        <input type="password" name="password"/>
-        <label for="cpw">Confirm Password</label>
-        <input type="password" name="confirm"/>
-        <input type="submit" name="saved" value="Save Profile"/>
-    </form>
+<h3 class="text-center mt-4">Profile</h3>
+
+<form method="POST">
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    <input type="email" class="form-control" id="email" name="email" maxlength="100" required value="<?php safer_echo(get_email()); ?>">
+  </div>
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" class="form-control" id="username" name="username" maxlength="60" required value="<?php safer_echo(get_username()); ?>">
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <div class="form-group">
+        <label for="first_name">First Name</label>
+        <input type="text" class="form-control" id="first_name" name="first_name" maxlength="60" required value="<?php safer_echo(get_first_name()); ?>">
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="form-group">
+        <label for="last_name">Last Name</label>
+        <input type="text" class="form-control" id="last_name" name="last_name" maxlength="60" required value="<?php safer_echo(get_last_name()); ?>">
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <h4 class="text-center">Change Password</h4>
+
+  <!-- DO NOT PRELOAD PASSWORD-->
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" name="password" maxlength="60">
+  </div>
+  <div class="form-group">
+    <label for="confirm">Confirm Password</label>
+    <input type="password" class="form-control" id="confirm" name="confirm" maxlength="60">
+  </div>
+  <button type="submit" name="saved" value="Save Profile" class="btn btn-primary">Save Profile</button>
+</form>
+
 <?php require __DIR__ . "/partials/flash.php"; ?>
