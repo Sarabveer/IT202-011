@@ -40,6 +40,7 @@ require_once __DIR__ . "/../lib/helpers.php";
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="<?php echo getURL('transaction.php?type=deposit'); ?>">Deposit</a>
                             <a class="dropdown-item" href="<?php echo getURL('transaction.php?type=withdraw'); ?>">Withdraw</a>
+                            <a class="dropdown-item" href="<?php echo getURL('transaction.php?type=transfer'); ?>">Transfer</a>
                         </div>
                     </li>
                 </ul>
