@@ -9,7 +9,7 @@ if (!is_logged_in()) {
 $db = getDB();
 $user = get_user_id();
 $stmt = $db->prepare(
-  "SELECT Accounts.id, account_number, account_type, balance, last_updated FROM Accounts JOIN Users ON Accounts.user_id = Users.id WHERE Users.id = :q ORDER BY Accounts.id"
+  "SELECT Accounts.id, account_number, account_type, balance, last_updated, APY FROM Accounts JOIN Users ON Accounts.user_id = Users.id WHERE Users.id = :q ORDER BY Accounts.id"
 );
 $r = $stmt->execute([":q" => $user]);
 if ($r) {
@@ -35,7 +35,11 @@ if ($r) {
       <?php foreach ($results as $r): ?>
           <tr>
             <th scope="row"><?php safer_echo($r["account_number"]); ?></th>
-            <td><?php safer_echo(ucfirst($r["account_type"])); ?></td>
+            <td><?php safer_echo(ucfirst($r["account_type"])); ?>
+            <?php if ($r["APY"] != 0): ?>
+              <br><small>APY: <?php safer_echo($r["APY"]); ?>%</small>
+            <?php endif; ?>
+            </td>
             <td>$<?php safer_echo($r["balance"]); ?><br><small>As of <?php safer_echo($r["last_updated"]); ?></small></td>
             <td><a href="view_transactions.php?id=<?php safer_echo($r["id"]); ?>" class="btn btn-success">Transactions</a></td>
           </tr>
