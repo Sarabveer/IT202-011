@@ -13,7 +13,6 @@ require_once __DIR__ . "/../lib/helpers.php";
 	<!-- Libraries -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5/web-fonts-with-css/css/fontawesome-all.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap4-card-tables@1.2.1/dist/bootstrap4-card-tables.min.css">
 	<script defer src="https://cdn.jsdelivr.net/npm/bootstrap.native@3/dist/bootstrap-native.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -31,7 +30,7 @@ require_once __DIR__ . "/../lib/helpers.php";
                     <li class="nav-item"><a class="nav-link" href="<?php echo getURL('register.php'); ?>">Register</a></li>
                 <?php endif; ?>
                 <?php if (is_logged_in()): ?>
-                    <li class="nav-item"><a class="nav-link" href="<?php echo getURL('home.php'); ?>">Home</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo getURL('home.php'); ?>">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo getURL('accounts.php'); ?>">Accounts</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -56,7 +55,7 @@ require_once __DIR__ . "/../lib/helpers.php";
                             Admin
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href=<?php echo getURL('test/test_create_accounts.php'); ?>">Create Account</a>
+                            <a class="dropdown-item" href="<?php echo getURL('test/test_create_accounts.php'); ?>">Create Account</a>
                             <a class="dropdown-item" href="<?php echo getURL('test/test_list_accounts.php'); ?>">View Account</a>
                             <a class="dropdown-item" href="<?php echo getURL('test/test_create_transactions.php'); ?>">Create Transaction</a>
                             <a class="dropdown-item" href="<?php echo getURL('test/test_list_transactions.php'); ?>">View Transactions</a>
