@@ -22,8 +22,8 @@ if ($r) {
     <h3 class="text-center mt-4 mb-4">Accounts</h3>
 
     <?php if (count($results) > 0): ?>
-      <table class="table">
-        <thead>
+      <table class="table table-striped">
+        <thead class="thead-dark">
           <tr>  
             <th scope="col">Account Number</th>
             <th scope="col">Account Type</th>
@@ -40,7 +40,7 @@ if ($r) {
               <br><small>APY: <?php safer_echo($r["APY"]); ?>%</small>
             <?php endif; ?>
             </td>
-            <td>$<?php safer_echo($r["balance"]); ?><br><small>As of <?php safer_echo($r["last_updated"]); ?></small></td>
+            <td>$<?php safer_echo(abs($r["balance"])); ?><br><small>As of <?php safer_echo($r["last_updated"]); ?></small></td>
             <td><a href="view_transactions.php?id=<?php safer_echo($r["id"]); ?>" class="btn btn-success">Transactions</a></td>
           </tr>
       <?php endforeach; ?>

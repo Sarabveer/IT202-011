@@ -67,8 +67,8 @@ if (isset($_GET["id"])) {
     <h3 class="text-center mt-4 mb-4">Transaction History</h3>
 
 <?php if (count($results) > 0): ?>
-  <table class="table">
-    <thead>
+  <table class="table table-striped">
+    <thead class="thead-dark">
       <tr>  
         <th scope="col">Account Number (Source)</th>
         <th scope="col">Account Number (Dest)</th>

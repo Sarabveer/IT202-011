@@ -17,7 +17,7 @@ $user = get_user_id();
 $db = getDB();
 
 // Get user accounts
-$stmt = $db->prepare('SELECT * FROM Accounts WHERE user_id = :id ORDER BY id ASC');
+$stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id AND Accounts.account_type NOT LIKE 'loan' ORDER BY id ASC");
 $stmt->execute([':id' => $user]);
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -45,6 +45,11 @@ if (isset($_POST["save"])) {
     flash("Cannot transfer to the same user!");
     die(header("Location: transaction_out.php"));
   }
+  if($account_dest["account_type"] == "loan") {
+    flash("Cannot transfer to a loan account!");
+    die(header("Location: transaction_out.php"));
+  }
+
   $stmt = $db->prepare('SELECT balance FROM Accounts WHERE id = :id');
   $stmt->execute([':id' => $account_src]);
   $acct = $stmt->fetch(PDO::FETCH_ASSOC);
