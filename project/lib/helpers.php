@@ -117,7 +117,7 @@ function getURL($path) {
 
 function changeBalance($db, $src, $dest, $type, $balChange, $memo = '') {
   // Src Account Balance
-  $stmt = $db->prepare("SELECT * from Accounts WHERE id = :id");
+  $stmt = $db->prepare("SELECT balance from Accounts WHERE id = :id");
   $stmt->execute([":id" => $src]);
   $srcAcct = $stmt->fetch(PDO::FETCH_ASSOC);
 
