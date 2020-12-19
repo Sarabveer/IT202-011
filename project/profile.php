@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once __DIR__ . "/partials/nav.php";
 //Note: we have this up here, so our update happens before our get/fetch
 //that way we'll fetch the updated data and have it correctly reflect on the form below
@@ -116,6 +117,7 @@ if (isset($_POST["saved"])) {
     //else for $isValid, though don't need to put anything here since the specific failure will output the message
   }
 }
+ob_end_flush();
 ?>
 
 <h3 class="text-center mt-4">Profile</h3>
