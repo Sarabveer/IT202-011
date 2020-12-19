@@ -36,9 +36,10 @@ require_once __DIR__ . "/../lib/helpers.php";
                             Accounts
                         </a>
                         <div class="dropdown-menu" aria-labelledby="accountsDropdown">
-                            <a class="dropdown-item" href="<?php echo getURL('accounts.php'); ?>">View Accounts</a>
+                        <a class="dropdown-item" href="<?php echo getURL('accounts.php'); ?>">View Accounts</a>
                             <a class="dropdown-item" href="<?php echo getURL('create_account.php'); ?>">Create Account</a>
                             <a class="dropdown-item" href="<?php echo getURL('create_loan.php'); ?>">Take out Loan</a>
+                            <a class="dropdown-item" href="<?php echo getURL('close_account.php'); ?>">Close Account</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">

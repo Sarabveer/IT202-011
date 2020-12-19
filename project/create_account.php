@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once __DIR__ . "/partials/nav.php";
 if (!is_logged_in()) {
   //this will redirect to login and kill the rest of this script (prevent it from executing)
@@ -8,7 +9,7 @@ if (!is_logged_in()) {
 
 if (isset($_POST["save"])) {
   $db = getDB();
-  $check = $db->prepare('SELECT account_number FROM Accounts WHERE account_number = :q');
+  $check = $db->prepare('SELECT account_number FROM Accounts WHERE account_number = :q AND active = 1');
   do {
     $account_number = rand(100000000000, 999999999999);
     $check->execute([':q' => $account_number]);
@@ -19,7 +20,8 @@ if (isset($_POST["save"])) {
 
   $balance = $_POST["balance"];
   if($balance < 5) {
-    die(flash("Minimum balance not deposited."));
+    flash("Minimum balance not deposited.");
+    die(header("Location: create_account.php"));
   }
 
   //calc
@@ -48,6 +50,7 @@ if (isset($_POST["save"])) {
     flash("Error creating account!");
   }
 }
+ob_end_flush();
 ?>
 
 <h3 class="text-center mt-4">Create New Bank Account</h3>

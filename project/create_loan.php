@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once __DIR__ . "/partials/nav.php";
 if (!is_logged_in()) {
   //this will redirect to login and kill the rest of this script (prevent it from executing)
@@ -11,7 +12,12 @@ $user = get_user_id();
 $db = getDB();
 
 // Get user accounts
-$stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id AND account_type NOT LIKE 'loan' ORDER BY id ASC");
+$stmt = $db->prepare(
+  "SELECT id, account_number, account_type, balance
+  FROM Accounts
+  WHERE user_id = :id AND account_type NOT LIKE 'loan' AND active = 1
+  ORDER BY id ASC
+");
 $stmt->execute([':id' => $user]);
 $accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -28,7 +34,8 @@ if (isset($_POST["save"])) {
 
   $balance = $_POST["balance"];
   if($balance < 500) {
-    die(flash("Minimum balance not entered."));
+    flash("Minimum balance not entered.");
+    die(header("Location: create_loan.php"));
   }
 
   $user = get_user_id();
@@ -50,6 +57,7 @@ if (isset($_POST["save"])) {
     flash("Error creating account!");
   }
 }
+ob_end_flush();
 ?>
 
 <h3 class="text-center mt-4">Open a Loan</h3>

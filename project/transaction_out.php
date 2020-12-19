@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once __DIR__ . "/partials/nav.php";
 if (!is_logged_in()) {
   //this will redirect to login and kill the rest of this script (prevent it from executing)
@@ -17,7 +18,12 @@ $user = get_user_id();
 $db = getDB();
 
 // Get user accounts
-$stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id AND Accounts.account_type NOT LIKE 'loan' ORDER BY id ASC");
+$stmt = $db->prepare(
+  "SELECT id, account_number, account_type, balance
+  FROM Accounts
+  WHERE user_id = :id AND account_type NOT LIKE 'loan' AND active = 1
+  ORDER BY id ASC
+");
 $stmt->execute([':id' => $user]);
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -34,7 +40,14 @@ if (isset($_POST["save"])) {
     die(header("Location: transaction_out.php"));
   }
 
-  $stmt = $db->prepare('SELECT Accounts.id, Users.username FROM Accounts JOIN Users ON Accounts.user_id = Users.id WHERE Users.last_name = :last_name AND Accounts.account_number LIKE :last_four');
+  $stmt = $db->prepare(
+    'SELECT Accounts.id, Users.username
+    FROM Accounts
+    JOIN Users ON Accounts.user_id = Users.id
+    WHERE Users.last_name = :last_name
+    AND Accounts.account_number LIKE :last_four
+    AND active = 1
+  ');
   $stmt->execute([
     ':last_name' => $last_name,
     ':last_four' => "%$last_four"
@@ -65,7 +78,7 @@ if (isset($_POST["save"])) {
     flash("Error doing transaction!");
   }
 }
-
+ob_end_flush();
 ?>
 
 <h3 class="text-center mt-4">Transfer Out</h3>

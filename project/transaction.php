@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once __DIR__ . "/partials/nav.php";
 if (!is_logged_in()) {
   //this will redirect to login and kill the rest of this script (prevent it from executing)
@@ -17,7 +18,12 @@ $user = get_user_id();
 $db = getDB();
 
 // Get user accounts
-$stmt = $db->prepare('SELECT * FROM Accounts WHERE user_id = :id ORDER BY id ASC');
+$stmt = $db->prepare(
+  "SELECT id, account_number, account_type, balance
+  FROM Accounts
+  WHERE user_id = :id AND active = 1
+  ORDER BY id ASC
+");
 $stmt->execute([':id' => $user]);
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -63,7 +69,7 @@ if (isset($_POST["save"])) {
     flash("Error doing transaction!");
   }
 }
-
+ob_end_flush();
 ?>
 
 <h3 class="text-center mt-4"><?php safer_echo(ucfirst($type)) ?></h3>

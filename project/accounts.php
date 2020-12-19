@@ -9,7 +9,11 @@ if (!is_logged_in()) {
 $db = getDB();
 $user = get_user_id();
 $stmt = $db->prepare(
-  "SELECT Accounts.id, account_number, account_type, balance, last_updated, APY FROM Accounts JOIN Users ON Accounts.user_id = Users.id WHERE Users.id = :q ORDER BY Accounts.id"
+  "SELECT Accounts.id, account_number, account_type, balance, last_updated, APY
+  FROM Accounts
+  JOIN Users ON Accounts.user_id = Users.id
+  WHERE Users.id = :q AND active = 1
+  ORDER BY Accounts.id"
 );
 $r = $stmt->execute([":q" => $user]);
 if ($r) {
