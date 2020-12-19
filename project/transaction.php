@@ -80,9 +80,11 @@ if (isset($_POST["save"])) {
     <label for="account"><?php echo $type == 'transfer' ? 'Account Source' : 'Account'; ?></label>
     <select class="form-control" id="account" name="<?php echo $type == 'transfer' ? 'account_src' : 'account'; ?>">
       <?php foreach ($results as $r): ?>
+      <?php if ($r["account_type"] != "loan"): ?>
       <option value="<?php safer_echo($r["id"]); ?>">
         <?php safer_echo($r["account_number"]); ?> | <?php safer_echo($r["account_type"]); ?> | <?php safer_echo($r["balance"]); ?>
       </option>
+      <?php endif; ?>
       <?php endforeach; ?>
     </select>
   </div>

@@ -31,7 +31,16 @@ require_once __DIR__ . "/../lib/helpers.php";
                 <?php endif; ?>
                 <?php if (is_logged_in()): ?>
                     <li class="nav-item"><a class="nav-link" href="<?php echo getURL('home.php'); ?>">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?php echo getURL('accounts.php'); ?>">Accounts</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="accountsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Accounts
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="accountsDropdown">
+                            <a class="dropdown-item" href="<?php echo getURL('accounts.php'); ?>">View Accounts</a>
+                            <a class="dropdown-item" href="<?php echo getURL('create_account.php'); ?>">Create Account</a>
+                            <a class="dropdown-item" href="<?php echo getURL('create_loan.php'); ?>">Take out Loan</a>
+                        </div>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Transaction
