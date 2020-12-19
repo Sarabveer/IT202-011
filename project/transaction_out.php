@@ -41,7 +41,7 @@ if (isset($_POST["save"])) {
   }
 
   $stmt = $db->prepare(
-    'SELECT Accounts.id, Users.username
+    'SELECT Accounts.id, Users.username, account_type
     FROM Accounts
     JOIN Users ON Accounts.user_id = Users.id
     WHERE Users.last_name = :last_name
