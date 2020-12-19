@@ -27,10 +27,7 @@ if (isset($_POST["register"])) {
   }
   $isValid = true;
   //check if passwords match on the server side
-  if ($password == $confirm) {
-    //not necessary to show
-    //echo "Passwords match <br>";
-  } else {
+  if ($password != $confirm) {
     flash("Passwords don't match!");
     $isValid = false;
   }
