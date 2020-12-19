@@ -11,7 +11,14 @@
     <label for="password">Password</label>
     <input type="password" class="form-control" id="password" maxlength="60" name="password" required>
   </div>
-  <button type="submit" name="login" value="Login" class="btn btn-primary">Login</button>
+  <div class="btn-toolbar" role="toolbar">
+    <div class="btn-group mr-2" role="group">
+      <button type="submit" name="login" value="Login" class="btn btn-primary">Login</button>
+    </div>
+    <div class="btn-group" role="group">
+      <a href="reset_password.php" class="btn btn-primary" role="button">Reset Password</a>
+    </div>
+  </div>
 </form>
 
 <?php
